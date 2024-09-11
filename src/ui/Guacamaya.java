@@ -8,6 +8,7 @@ public class Guacamaya {
     public static double[] precios;
     public static int[] unidades;
 
+
     public static void main(String[] args) {
 
         inicializarGlobales();
@@ -29,6 +30,7 @@ public class Guacamaya {
      * Descripcion: Este metodo se encarga de desplegar el menu al usuario y mostrar los mensajes de resultado para cada funcionalidad
      * pre: El Scanner reader debe estar inicializado
      * pre: El arreglo precios debe estar inicializado
+     * 
     */
     public static void menu() {
 
@@ -99,33 +101,105 @@ public class Guacamaya {
 
     }
 
-    public static void solicitarDatos(){
 
+
+
+
+
+    /**
+     * Descripcion: El metodo permite guardar los datos que el usuario ingresa para luego ser calculados
+     * pre:  El arreglo esta inicializado y vacio
+     * pos: El arreglo adquiere el valor de precio que se ingresa
+     * @param precios double[] El precio de la referencia
+     * @param unidades int[] La cantidad de unidades de la referencia
+     */
+    public static void solicitarDatos(){
+        for(int i=0;i<unidades.length; i++){
+            System.out.println("Digite el precio de la referencia");
+            double precio = reader.nextDouble();
+            System.out.println("Digite la cantidad de unidades de esa referencia");
+            int unidad = reader.nextInt();
+            precios[i] = precio;
+            unidades[i] = unidad;
+        }  
      
     }
 
+
+
+    /**
+     * Descripcion: El metodo permite calcular la cantidad total de unidades vendidas
+     * pre: El arreglo esta inicializado y contiene la cantidad de unidades ingresadas hasta el momento
+     * pos: El arreglo queda con la cantidad total de unidades
+     * @param unidades int[] La cantidad de unidades de la referencia
+     * @param suma int suma todos las unidades (elementos del arreglo)
+     */
     public static int calcularTotalUnidadesVendidas(){
-
-        return 0;
-
+        int suma = 0;
+        for(int i = 0; i<unidades.length; i++){
+            suma += unidades[i];
+        }
+        
+        return suma;
     }
 
+
+
+
+    /**
+     * Descripcion: El metodo permite calcular el precio promedio de todas las referencias
+     * pre: El arreglo esta inicializado y contiene todos los precios ingresados
+     * pos: El arreglo queda con el promedio del precio
+     * @param precios double[] los precios de cada unidad
+     * @param promedio double resultado de la suma y division de los precios
+     */
     public static double calcularPrecioPromedio(){
-
-        return 0;
-
+        double suma = 0;
+        double promedio = 0; 
+        for(int i = 0; i<precios.length; i++){
+            suma += precios[i];
+        }
+        promedio = suma / precios.length;
+        
+        return promedio;
     }
 
+
+
+
+/**
+     * Descripcion: El metodo permite calcular las ventas totales
+     * pre: El arreglo esta inicializado y contiene todos los precios ingresados
+     * pos: El arreglo se multiplica por la cantidad total de unidades
+     * @param precios double[] los precios de cada unidad
+     * @param promedio double resultado de la suma y division de los precios
+     */
     public static double calcularVentasTotales(){
-
-        return 0;
-
+        double totalVentas = 0;
+        for(int i = 0; i<unidades.length; i++){
+            totalVentas = unidades[i] * precios[i];
+        }
+        
+        return totalVentas;
     }
+
+
+
+
+
 
     public static int consultarReferenciasSobreLimite(double limite){
+        int contador = 0;
+        int i;
+        for(i=0; i<unidades.length; i++){
+            double totalVenta = precios[i] * unidades[i];
+            if(totalVenta>=limite ){
+                contador++;
+            }
 
-        return 0;
+        }
 
+        return contador;
     }
 
 }
